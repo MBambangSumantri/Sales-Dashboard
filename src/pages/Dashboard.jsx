@@ -1,6 +1,41 @@
 import React from 'react'
+import { Line } from 'react-chartjs-2'
+import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement } from 'chart.js'
+
+ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement)
 
 export default function Dashboard() {
+    const data = {
+        labels: ["04 Apr '22", "06 Apr '22", "08 Apr '22", "10 Apr '22"],
+        datasets: [
+            {
+                data: [3200000, 2500000, 3000000, 2000000],
+                backgroundColor: 'transparent',
+                borderColor: '#545DFF',
+                pointBorderColor: 'transparent',
+                pointBorderWidth: 4,
+                tension: 0.5
+            }
+        ]
+    }
+    const options = {
+        plugins: {
+            legend: false
+        },
+        scales: {
+            x: {
+                grid: {
+                    display: false
+                }
+            },
+            y: {
+                grid: {
+                    borderDash: [10]
+                }
+            }
+        }
+    }
+
     return (
         <div>
             <div className="h-16 px-7 py-7">
@@ -25,6 +60,9 @@ export default function Dashboard() {
                     </div>
                     <div className="flex flex-row-reverse text-sm text-yellow-500">0.5% compared to 7 days ago</div>
                 </div>
+            </div>
+            <div className="grid lg:grid-cols-3 mt-6 mx-8">
+                <Line className="w-4 h-5 shadow-md" data={data} options={options}></Line>
             </div>
         </div>
     )
